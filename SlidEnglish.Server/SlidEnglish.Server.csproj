@@ -28,5 +28,9 @@
     <ProjectReference Include="..\SlidEnglish.Client\SlidEnglish.Client.csproj" />
     <ProjectReference Include="..\SlidEnglish.Shared\SlidEnglish.Shared.csproj" />
   </ItemGroup>
+  
+  <Target Name="PrePublishTarget" AfterTargets="Publish">
+    <Exec Command="dotnet ef database update" />
+  </Target>
 
 </Project>
