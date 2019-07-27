@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SlidEnglish.Server;
-using SlidEnglish.Server.Models;
+using SlidEnglish.Shared;
 
 namespace SlidEnglish.Server.Controllers
 {

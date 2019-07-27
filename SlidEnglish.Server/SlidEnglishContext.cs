@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SlidEnglish.Server.Models;
 
 namespace SlidEnglish.Server
 {
@@ -32,6 +31,6 @@ namespace SlidEnglish.Server
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<SlidEnglish.Server.Models.Word> Word { get; set; }
+        public DbSet<SlidEnglish.Shared.Word> Word { get; set; }
     }
 }

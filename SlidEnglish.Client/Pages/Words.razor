@@ -1,0 +1,50 @@
+﻿@page "/words"
+@using SlidEnglish.Shared
+@inject HttpClient Http
+
+<h1>Words</h1>
+
+<input type="text" @bind="@word" />
+
+<button class="btn btn-primary" @onclick="AddWord">Add word</button>
+
+@if (words == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Word</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in words)
+            {
+                <tr>
+                    <td>@item.Text</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    string word;
+    List<Word> words;
+
+    protected override async Task OnInitAsync()
+    {
+        var array = await Http.GetJsonAsync<Word[]>("api/words");
+        words = new List<Word>(array.Length);
+        words.AddRange(array);
+    }
+
+    async Task AddWord()
+    {
+        var newWord = await Http.PostJsonAsync<Word>("api/words", new Word() { Text = word });
+        words.Add(newWord);
+    }
+}
