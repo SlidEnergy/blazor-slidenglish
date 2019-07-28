@@ -6,13 +6,33 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Linq;
 
 namespace SlidEnglish.Server
 {
 	public class Startup
 	{
-		public IConfigurationRoot Configuration { get; }
+		private string ConnectionString
+		{
+			get
+			{
+				if (CurrentEnvironment.IsProduction())
+					return Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+				return Configuration.GetConnectionString(Environment.MachineName) ??
+					Configuration.GetConnectionString("DefaultConnection");
+			}
+		}
+
+		public IConfiguration Configuration { get; }
+		private IWebHostEnvironment CurrentEnvironment { get; }
+
+		public Startup(IConfiguration configuration, IWebHostEnvironment env)
+		{
+			Configuration = configuration;
+			CurrentEnvironment = env;
+		}
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -28,8 +48,8 @@ namespace SlidEnglish.Server
 
 			services.AddEntityFrameworkNpgsql()
 				.AddDbContext<SlidEnglishContext>(options => options
-					.UseLazyLoadingProxies())
-					//.UseNpgsql(GetConnectionString()))
+					.UseLazyLoadingProxies()
+					.UseNpgsql(ConnectionString))
 				.BuildServiceProvider();
 		}
 
