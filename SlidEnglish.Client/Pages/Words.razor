@@ -18,6 +18,7 @@ else
         <thead>
             <tr>
                 <th>Word</th>
+                <th>Links</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,16 @@ else
             {
                 <tr>
                     <td>@item.Text</td>
+                    <td>
+                        <a href="https://www.multitran.com/m.exe?s=@item.Text&l1=1&l2=2" target="_blank"><img src="img/multitran.jpg" height="24" title="Мультитран" /></a>,
+                        <a href="https://www.merriam-webster.com/dictionary/@item.Text" target="_blank"><img src="img/merriam-webster.jpg" height="24" title="Merridam-Webster" /></a>,
+                        <a href="https://www.vocabulary.com/dictionary/@item.Text" target="_blank"><img src="img/vocabulary.png" height="24" title="Vocabulary" /></a>,
+                        <a href="https://dictionary.cambridge.org/us/dictionary/english/@item.Text" target="_blank"><img src="img/cambridge.png" height="24" title="Cambridge" /></a>,
+                        <a href="https://translate.google.ru/?hl=ru&tab=wT#view=home&op=translate&sl=en&tl=ru&text=@item.Text" target="_blank"><img src="img/google-translate.png" height="24" title="Google translate" /></a>,
+                        <a href="https://www.google.ru/search?q=@item.Text" target="_blank">Search</a>/
+                        <a href="https://www.google.ru/search?tbm=isch&q=@item.Text" target="_blank">Images</a>/
+                        <a href="https://www.google.ru/search?tbm=vid&q=@item.Text" target="_blank">Video</a>
+                    </td>
                 </tr>
             }
         </tbody>
