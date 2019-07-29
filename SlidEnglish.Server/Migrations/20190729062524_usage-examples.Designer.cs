@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SlidEnglish.Server;
@@ -9,9 +10,10 @@ using SlidEnglish.Server;
 namespace SlidEnglish.Server.Migrations
 {
     [DbContext(typeof(SlidEnglishContext))]
-    partial class SlidEnglishContextModelSnapshot : ModelSnapshot
+    [Migration("20190729062524_usage-examples")]
+    partial class usageexamples
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

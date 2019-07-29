@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Server", "SlidE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Client", "SlidEnglish.Client\SlidEnglish.Client.csproj", "{17B33B02-49F5-4F88-91FD-F31681698E3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Domain", "SlidEnglish.Shared\SlidEnglish.Domain.csproj", "{87123448-DD8F-42C9-B2B7-4A9FDEAD5B91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Domain", "SlidEnglish.Domain\SlidEnglish.Domain.csproj", "{87123448-DD8F-42C9-B2B7-4A9FDEAD5B91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

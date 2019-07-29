@@ -29,5 +29,7 @@ namespace SlidEnglish.Server
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
         public DbSet<Word> Word { get; set; }
+
+        public DbSet<SlidEnglish.Domain.UsageExample> UsageExample { get; set; }
     }
 }

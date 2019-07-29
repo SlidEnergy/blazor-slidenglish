@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SlidEnglish.Client\SlidEnglish.Client.csproj" />
-    <ProjectReference Include="..\SlidEnglish.Shared\SlidEnglish.Domain.csproj" />
+    <ProjectReference Include="..\SlidEnglish.Domain\SlidEnglish.Domain.csproj" />
   </ItemGroup>
   
   <Target Name="PrePublishTarget" AfterTargets="Publish">
