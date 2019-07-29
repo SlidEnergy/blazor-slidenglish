@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -38,7 +39,13 @@ namespace SlidEnglish.Server
 		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddCors();
+            // AutoMapper
+            services.AddScoped(provider => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile(provider.GetService<SlidEnglishContext>()));
+            }).CreateMapper());
+
+            services.AddCors();
 			services.AddMvc().AddNewtonsoftJson();
 			services.AddResponseCompression(opts =>
 			{

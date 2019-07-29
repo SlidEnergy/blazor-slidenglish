@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SlidEnglish.Domain;
 using System.Collections.Generic;
@@ -12,24 +13,28 @@ namespace SlidEnglish.Server
     public class WordsController : ControllerBase
     {
         private readonly SlidEnglishContext _context;
+        private readonly IMapper _mapper;
 
-        public WordsController(SlidEnglishContext context)
+        public WordsController(IMapper mapper, SlidEnglishContext context)
         {
+            _mapper = mapper;
             _context = context;
         }
 
         // GET: api/Words
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Word>>> GetWord()
+        public async Task<ActionResult<IEnumerable<Shared.Word>>> GetWord()
         {
-            return await _context.Word.ToListAsync();
+            var words = await _context.Word.ToListAsync();
+
+            return _mapper.Map<Shared.Word[]>(words);
         }
 
         // GET: api/Words/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Word>> GetWord(int id)
+        [HttpGet("{text}")]
+        public async Task<ActionResult<Word>> GetWord(string text)
         {
-            var word = await _context.Word.FindAsync(id);
+            var word = await _context.Word.Where(x=> x.Text == text).FirstOrDefaultAsync();
 
             if (word == null)
             {

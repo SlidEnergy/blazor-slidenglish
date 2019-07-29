@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SlidEnglish.Domain\SlidEnglish.Domain.csproj" />
+    <ProjectReference Include="..\SlidEnglish.Shared\SlidEnglish.Shared.csproj" />
   </ItemGroup>
 
 </Project>

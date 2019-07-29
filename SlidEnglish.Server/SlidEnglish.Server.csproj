@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="3.0.0-preview7.19365.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview7.19365.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview7.19362.6" />
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SlidEnglish.Client\SlidEnglish.Client.csproj" />
     <ProjectReference Include="..\SlidEnglish.Domain\SlidEnglish.Domain.csproj" />
+    <ProjectReference Include="..\SlidEnglish.Shared\SlidEnglish.Shared.csproj" />
   </ItemGroup>
   
   <Target Name="PrePublishTarget" AfterTargets="Publish">

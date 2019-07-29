@@ -18,5 +18,5 @@ namespace SlidEnglish.Domain
 
         [Required]
         public virtual ICollection<UsageExample> UsageExamples { get; set; }
-	}
+    }
 }

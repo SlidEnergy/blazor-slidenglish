@@ -1,5 +1,5 @@
 ﻿@page "/words"
-@using SlidEnglish.Domain
+@using SlidEnglish.Shared
 @inject HttpClient Http
 
 <h1>Words</h1>
@@ -25,7 +25,7 @@ else
             @foreach (var item in words)
             {
                 <tr>
-                    <td>@item.Text</td>
+                    <td><NavLink href="@($"words/{item.Text}")">@item.Text</NavLink></td>
                     <td>
                         <a href="https://www.multitran.com/m.exe?s=@item.Text&l1=1&l2=2" target="_blank"><img src="img/multitran.jpg" height="24" title="Мультитран" /></a>,
                         <a href="https://www.merriam-webster.com/dictionary/@item.Text" target="_blank"><img src="img/merriam-webster.jpg" height="24" title="Merridam-Webster" /></a>,

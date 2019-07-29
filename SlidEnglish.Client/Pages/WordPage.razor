@@ -1,0 +1,43 @@
+﻿@page "/words/{Text}"
+@using SlidEnglish.Shared
+@inject HttpClient Http
+
+<h1>Word</h1>
+
+@if (word == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <input type="text" @bind="@word.Text" />
+    <br />
+    <select @bind="@selectedString">
+        @foreach (var item in words)
+        {
+            @if (item.Id != word.Id)
+            {
+                <option value="@item.Text">@item.Text</option>
+            }
+        }
+    </select>
+    <br />
+    @selectedString
+}
+
+@code {
+    Word word;
+    List<Word> words;
+    string selectedString;
+
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        word = await Http.GetJsonAsync<Word>("api/words/" + Text);
+        var array = await Http.GetJsonAsync<Word[]>("api/words");
+        words = new List<Word>(array.Length);
+        words.AddRange(array);
+    }
+}
