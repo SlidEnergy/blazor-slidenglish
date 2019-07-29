@@ -32,7 +32,7 @@ else
 }
 
 @code {
-    string word;
+    string word = "";
     List<Word> words;
 
     protected override async Task OnInitAsync()
@@ -44,7 +44,11 @@ else
 
     async Task AddWord()
     {
-        var newWord = await Http.PostJsonAsync<Word>("api/words", new Word() { Text = word });
-        words.Add(newWord);
+        if (!string.IsNullOrEmpty(word))
+        {
+            var newWord = await Http.PostJsonAsync<Word>("api/words", new Word() { Text = word });
+            words.Add(newWord);
+            word = "";
+        }
     }
 }
