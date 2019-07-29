@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.89
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlidEnglish.Server", "SlidEnglish.Server\SlidEnglish.Server.csproj", "{CE94131D-4B92-4694-A271-38EB1C970059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Server", "SlidEnglish.Server\SlidEnglish.Server.csproj", "{CE94131D-4B92-4694-A271-38EB1C970059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlidEnglish.Client", "SlidEnglish.Client\SlidEnglish.Client.csproj", "{17B33B02-49F5-4F88-91FD-F31681698E3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Client", "SlidEnglish.Client\SlidEnglish.Client.csproj", "{17B33B02-49F5-4F88-91FD-F31681698E3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlidEnglish.Shared", "SlidEnglish.Shared\SlidEnglish.Shared.csproj", "{87123448-DD8F-42C9-B2B7-4A9FDEAD5B91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlidEnglish.Domain", "SlidEnglish.Shared\SlidEnglish.Domain.csproj", "{87123448-DD8F-42C9-B2B7-4A9FDEAD5B91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

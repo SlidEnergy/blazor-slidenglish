@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SlidEnglish.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SlidEnglish.Server;
-using SlidEnglish.Shared;
 
-namespace SlidEnglish.Server.Controllers
+namespace SlidEnglish.Server
 {
     [Route("api/[controller]")]
     [ApiController]
