@@ -35,12 +35,12 @@ else
     @if (!renameMode)
     {
         <h1>@word.Text</h1>
-        <a class="action" href="javascript:void();" @onclick="@(() => renameMode = true)">rename</a>
+        <a class="action" href="javascript:void(0);" @onclick="@(() => renameMode = true)">rename</a>
     }
     else
     {
         <DxTextBox @bind-Text=@word.Text></DxTextBox>
-        <a class="action" href="javascript:void();" @onclick="@(() => renameMode = false)">cancel</a>
+        <a class="action" href="javascript:void(0);" @onclick="@(() => renameMode = false)">cancel</a>
     }
 
     <p>
@@ -55,13 +55,13 @@ else
                     <span>, </span>
                 }
 
-                <NavLink href="@($"words/{synonym}")">@synonym</NavLink> <a href="javascript:void();" class="delete-icon oi oi-delete" @onclick="@(() => DeleteSynonym(@synonym))"></a>
+                <NavLink href="@($"words/{synonym}")">@synonym</NavLink> <a href="javascript:void(0);" class="delete-icon oi oi-delete" @onclick="@(() => DeleteSynonym(@synonym))"></a>
             }
         }
 
         @if (!addMode)
         {
-            <span>&nbsp;</span><a class="action" href="javascript:void();" @onclick="@(() => addMode = true)">add</a>
+            <span>&nbsp;</span><a class="action" href="javascript:void(0);" @onclick="@(() => addMode = true)">add</a>
         }
         else
         {
@@ -71,7 +71,7 @@ else
                         @bind-SelectedItem=@SelectedItem>
 
             </DxComboBox>
-            <a class="action" href="javascript:void();" @onclick="AddSynonym">add</a> <a class="action" href="javascript:void();" @onclick="@(()=>addMode = false)">cancel</a>
+            <a class="action" href="javascript:void(0);" @onclick="AddSynonym">add</a> <a class="action" href="javascript:void(0);" @onclick="@(()=>addMode = false)">cancel</a>
         }
     </p>
     <br />

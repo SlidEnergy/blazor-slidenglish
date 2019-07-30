@@ -46,7 +46,7 @@ namespace SlidEnglish.Server
 
         // PUT: api/Words/5
         [HttpPut("{text}")]
-        public async Task<IActionResult> PutWord(string text, Shared.Word word)
+        public async Task<ActionResult<Shared.Word>> PutWord(string text, Shared.Word word)
         {
             if (text != word.Text)
             {
@@ -73,7 +73,7 @@ namespace SlidEnglish.Server
                 }
             }
 
-            return NoContent();
+            return _mapper.Map<Shared.Word>(newWord);
         }
 
         // POST: api/Words
@@ -92,10 +92,10 @@ namespace SlidEnglish.Server
         }
 
         // DELETE: api/Words/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Word>> DeleteWord(int id)
+        [HttpDelete("{text}")]
+        public async Task<IActionResult> DeleteWord(string text)
         {
-            var word = await _context.Word.FindAsync(id);
+            var word = await _context.Word.Where(x => x.Text == text).FirstOrDefaultAsync();
             if (word == null)
             {
                 return NotFound();
@@ -104,7 +104,7 @@ namespace SlidEnglish.Server
             _context.Word.Remove(word);
             await _context.SaveChangesAsync();
 
-            return word;
+            return NoContent();
         }
 
         private bool WordExists(string text)
