@@ -32,7 +32,7 @@ namespace SlidEnglish.Server
 
         // GET: api/Words/5
         [HttpGet("{text}")]
-        public async Task<ActionResult<Word>> GetWord(string text)
+        public async Task<ActionResult<Shared.Word>> GetWord(string text)
         {
             var word = await _context.Word.Where(x=> x.Text == text).FirstOrDefaultAsync();
 
@@ -41,19 +41,21 @@ namespace SlidEnglish.Server
                 return NotFound();
             }
 
-            return word;
+            return _mapper.Map<Shared.Word>(word);
         }
 
         // PUT: api/Words/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutWord(int id, Word word)
+        [HttpPut("{text}")]
+        public async Task<IActionResult> PutWord(string text, Shared.Word word)
         {
-            if (id != word.Id)
+            if (text != word.Text)
             {
                 return BadRequest();
             }
 
-            _context.Entry(word).State = EntityState.Modified;
+            var newWord = _mapper.Map<Domain.Word>(word);
+
+            _context.Entry(newWord).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +63,7 @@ namespace SlidEnglish.Server
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WordExists(id))
+                if (!WordExists(text))
                 {
                     return NotFound();
                 }
@@ -76,12 +78,17 @@ namespace SlidEnglish.Server
 
         // POST: api/Words
         [HttpPost]
-        public async Task<ActionResult<Word>> PostWord(Word word)
+        public async Task<ActionResult<Word>> PostWord(Shared.Word word)
         {
-            _context.Word.Add(word);
+            var newWord = new Domain.Word()
+            {
+                Text = word.Text
+            };
+
+            _context.Word.Add(newWord);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetWord", new { id = word.Id }, word);
+            return CreatedAtAction("GetWord", new { text = word.Text}, _mapper.Map<Shared.Word>(newWord));
         }
 
         // DELETE: api/Words/5
@@ -100,9 +107,9 @@ namespace SlidEnglish.Server
             return word;
         }
 
-        private bool WordExists(int id)
+        private bool WordExists(string text)
         {
-            return _context.Word.Any(e => e.Id == id);
+            return _context.Word.Any(e => e.Text == text);
         }
     }
 }

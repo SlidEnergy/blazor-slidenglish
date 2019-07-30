@@ -4,7 +4,7 @@
 
 <h1>Words</h1>
 
-<input type="text" @bind="@word" />
+<DxTextBox @bind-Text=@word></DxTextBox>
 
 <button class="btn btn-primary" @onclick="AddWord">Add word</button>
 
@@ -27,6 +27,7 @@ else
                 <tr>
                     <td><NavLink href="@($"words/{item.Text}")">@item.Text</NavLink></td>
                     <td>
+                        <a href="https://puzzle-english.com/find?query=@item.Text" target="_blank"><img src="img/puzzle-english.jpg" height="24" title="Puzzle english" /></a>,
                         <a href="https://www.multitran.com/m.exe?s=@item.Text&l1=1&l2=2" target="_blank"><img src="img/multitran.jpg" height="24" title="Мультитран" /></a>,
                         <a href="https://www.merriam-webster.com/dictionary/@item.Text" target="_blank"><img src="img/merriam-webster.jpg" height="24" title="Merridam-Webster" /></a>,
                         <a href="https://www.vocabulary.com/dictionary/@item.Text" target="_blank"><img src="img/vocabulary.png" height="24" title="Vocabulary" /></a>,

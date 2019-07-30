@@ -1,8 +1,30 @@
 ﻿@page "/words/{Text}"
 @using SlidEnglish.Shared
+@using System.Linq;
 @inject HttpClient Http
 
-<h1>Word</h1>
+<style>
+    h1, .dxbs-combobox, .dxbs-textbox {
+        display: inline-block;
+    }
+
+    a.action {
+        border-bottom: 1px dashed gray;
+        text-decoration: none;
+        color: gray;
+    }
+
+        a.action:hover {
+            border-bottom: 1px dashed black;
+            text-decoration: none;
+            color: black;
+        }
+
+    .delete-icon {
+        color: gray;
+        vertical-align: text-top;
+    }
+</style>
 
 @if (word == null)
 {
@@ -10,34 +32,108 @@
 }
 else
 {
-    <input type="text" @bind="@word.Text" />
-    <br />
-    <select @bind="@selectedString">
-        @foreach (var item in words)
+    @if (!renameMode)
+    {
+        <h1>@word.Text</h1>
+        <a class="action" href="javascript:void();" @onclick="@(() => renameMode = true)">rename</a>
+    }
+    else
+    {
+        <DxTextBox @bind-Text=@word.Text></DxTextBox>
+        <a class="action" href="javascript:void();" @onclick="@(() => renameMode = false)">cancel</a>
+    }
+
+    <p>
+        Synonyms:
+        @if (word.Synonyms != null)
         {
-            @if (item.Id != word.Id)
+            for (int i = 0; i < word.Synonyms.Length; i++)
             {
-                <option value="@item.Text">@item.Text</option>
+                var synonym = word.Synonyms[i];
+                if (i != 0)
+                {
+                    <span>, </span>
+                }
+
+                <NavLink href="@($"words/{synonym}")">@synonym</NavLink> <a href="javascript:void();" class="delete-icon oi oi-delete" @onclick="@(() => DeleteSynonym(@synonym))"></a>
             }
         }
-    </select>
+
+        @if (!addMode)
+        {
+            <span>&nbsp;</span><a class="action" href="javascript:void();" @onclick="@(() => addMode = true)">add</a>
+        }
+        else
+        {
+            <DxComboBox Data="@words.Where(x => !word.Synonyms.Contains(x.Text) && x.Text != word.Text)"
+                        FilteringMode="@DataGridFilteringMode.Contains"
+                        TextFieldName="Text"
+                        @bind-SelectedItem=@SelectedItem>
+
+            </DxComboBox>
+            <a class="action" href="javascript:void();" @onclick="AddSynonym">add</a> <a class="action" href="javascript:void();" @onclick="@(()=>addMode = false)">cancel</a>
+        }
+    </p>
     <br />
-    @selectedString
+    <p>
+        Associations:
+        <DxTextBox @bind-Text=@word.Associations></DxTextBox>
+    </p>
+    <br />
+    <button class="btn btn-primary" @onclick="Save">Save</button>
 }
 
 @code {
     Word word;
     List<Word> words;
-    string selectedString;
+    Word SelectedItem;
+    bool addMode = false;
+    bool renameMode = false;
 
+    public string _text;
     [Parameter]
-    public string Text { get; set; }
+    public string Text
+    {
+        get => _text;
+        set
+        {
+            _text = value;
+            var task = RefreshWord();
+        }
+    }
+
+    async Task RefreshWord()
+    {
+        word = await Http.GetJsonAsync<Word>("api/words/" + _text);
+        StateHasChanged();
+    }
 
     protected override async Task OnInitAsync()
     {
-        word = await Http.GetJsonAsync<Word>("api/words/" + Text);
         var array = await Http.GetJsonAsync<Word[]>("api/words");
-        words = new List<Word>(array.Length);
+        var words = new List<Word>(array.Length);
         words.AddRange(array);
+        this.words = words;
+    }
+
+    void AddSynonym()
+    {
+        if (SelectedItem != null)
+        {
+            word.Synonyms = word.Synonyms.Union(new[] { SelectedItem.Text }).ToArray();
+        }
+
+        SelectedItem = null;
+        addMode = false;
+    }
+
+    void DeleteSynonym(string synonym)
+    {
+        word.Synonyms = word.Synonyms.Where(x => x != synonym).ToArray();
+    }
+
+    async Task Save()
+    {
+        word = await Http.PutJsonAsync<Word>("api/words/" + Text, word);
     }
 }

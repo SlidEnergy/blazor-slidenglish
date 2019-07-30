@@ -11,8 +11,14 @@ namespace SlidEnglish.Server
         public MappingProfile(SlidEnglishContext context)
         {
             CreateMap<Domain.Word, Shared.Word>()
-              .ForMember(dest => dest.SynonymIds,
-                    opt => opt.MapFrom(src => src.Synonyms.Select(x => x.Id)));
+              .ForMember(dest => dest.Synonyms,
+                    opt => opt.MapFrom(src => src.Synonyms.Select(x => x.Text)));
+
+            CreateMap<Shared.Word, Domain.Word>()
+                 .ForMember(dest => dest.Associations,
+                    opt => opt.MapFrom(src => src.Associations ?? ""))
+                .ForMember(dest => dest.Synonyms,
+                    opt => opt.MapFrom(src => src.Synonyms == null ? null : src.Synonyms.Select(synonym => context.Word.Where(x => x.Text == synonym).FirstOrDefault())));
         }
     }
 }

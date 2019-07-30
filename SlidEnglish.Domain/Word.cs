@@ -14,7 +14,7 @@ namespace SlidEnglish.Domain
         public virtual ICollection<Word> Synonyms { get; set; }
 
         [Required]
-        public string Associations { get; set; }
+        public string Associations { get; set; } = "";
 
         [Required]
         public virtual ICollection<UsageExample> UsageExamples { get; set; }

@@ -5,9 +5,15 @@
     <OutputType>Exe</OutputType>
     <LangVersion>7.3</LangVersion>
     <RazorLangVersion>3.0</RazorLangVersion>
+	<BlazorLinkOnBuild>false</BlazorLinkOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
+    <!--<BlazorLinkerDescriptor Include="Linker.xml" />-->
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Blazor" Version="0.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview7.19365.7" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview7.19365.7" PrivateAssets="all" />
   </ItemGroup>
