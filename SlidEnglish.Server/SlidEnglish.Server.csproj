@@ -30,9 +30,9 @@
     <ProjectReference Include="..\SlidEnglish.Domain\SlidEnglish.Domain.csproj" />
     <ProjectReference Include="..\SlidEnglish.Shared\SlidEnglish.Shared.csproj" />
   </ItemGroup>
-  
+
   <Target Name="PrePublishTarget" AfterTargets="Publish">
     <Exec Command="dotnet ef database update" />
   </Target>
-
+  
 </Project>
